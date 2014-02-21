@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<!-- stylesheets -->
+	<link rel="stylesheet" href="css/reset.css">
+	<link rel="stylesheet" href="css/code.css">
+
+	<!-- fonts -->
+	<link href='http://fonts.googleapis.com/css?family=Cousine' rel='stylesheet' type='text/css'>
+	    
+	</style>
+</head>
+
+<body>
+
+
+
+
+<div id="ace-wrapper">
+
+	<div id="editor">function printSomeThings() {
+    var random = Math.random();
+    
+    
+    console.log("Did a run with random of: " + random);
+    console.error("I can also print to stderr");
+    
+    setTimeout(printSomeThings, 5000);
+
+    // anotherFunction();
+    
+    
+
+}
+
+printSomeThings()</div>
+</div>
+
+	<div id='console'></div>
+
+	<!-- underscore templates -->
+	<script type='text/template' id='log-line'>
+		<div class='logger-entry cf'>
+			<p class="logger-linenumber"><%= lineNumber %></p>
+			<p class="logger-log-line"><%= message %></p>
+		</div>
+	</script>
+
+	<script type='text/template' id='error-line'>
+		<div class='logger-entry cf'>
+			<p class="logger-linenumber"><%= lineNumber %></p>
+			<img class='error-icon' src='img/error-line-icon.png' />
+			<p class="logger-log-line error-line-text"><%= message %></p>
+		</div>
+	</script>
+
+	<!-- scripts -->
+	<script>
+
+
+	</script>
+	<script src="js/ace/ace.js" charset="utf-8"></script>
+	<script src="js/lib/jquery.js"></script>
+	<script src="js/lib/jqueryui.js"></script>
+	<script src="js/lib/underscore.js"></script>
+	<script src="js/lib/backbone.js"></script>
+	<script src="js/models.js"></script>
+	<script src="js/code.js"></script>
+	<script src="js/views.js"></script>
+
+
+</body>
+
+</html>

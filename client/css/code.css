@@ -1,0 +1,74 @@
+#editor { 
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 54%;
+    height: 800px;
+}
+
+#ace-wrapper {
+	width: 600px;
+}
+
+
+/************************ CONSOLE **********************/
+#console {
+	width: 46%;
+	height: 800px;
+	background-color: #ddd;
+	float: right;
+	font-family: 'Cousine', sans-serif;
+	color: #111;
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+
+.logger-linenumber {
+	float: left;
+	width: 28px;
+	text-align: right;
+	padding-right: 8px;
+	color: #999;
+}
+
+.logger-entry {
+	clear: both;
+	padding: 2px 0;
+	border-bottom: 1px solid #ccc;
+	margin-bottom: 2px;
+	/*height: 1px;*/
+}
+
+.logger-entry p {
+	font-size: 14px;
+}
+
+.error-icon {
+	height: 13px;
+	width: 13px;
+	float: left;
+	padding-right: 5px;
+}
+
+.error-line-text {
+	color: red;
+}
+
+.logger-log-line {
+	float: left;
+	max-width: 80%;
+
+}
+
+/******************* CLEAR FIX *******************/
+.cf:before,
+.cf:after {
+    content: " "; /* 1 */
+    display: table; /* 2 */
+}
+
+.cf:after {
+    clear: both;
+}

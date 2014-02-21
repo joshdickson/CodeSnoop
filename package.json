@@ -1,0 +1,25 @@
+{
+  "name": "codesnoop",
+  "version": "alpha-0.1.0",
+  "description": "Google and WPI Hackathon 2014 Project",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/joshdickson40/GoogleHackathon2014.git"
+  },
+  "author": "Joshua Dickson",
+  "dependencies" : {
+    "express": "3.2.x",
+  	"node-static" : "0.6.x",
+    "socket.io" : "0.9.x"
+  },
+  "contributors" : [ {
+    "name" : "Joshua Dickson",
+    "email" : "josh.dickson@wpi.edu",
+    "url" : "https://github.com/joshdickson40"
+  }, {
+    "name" : "Eddie Osowski"
+  },, {
+    "name" : "Christopher Donnelley"
+  }],
+  "license": "MIT"
+}
