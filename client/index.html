@@ -18,22 +18,7 @@
 
 <div id="ace-wrapper">
 
-	<div id="editor">function printSomeThings() {
-    var random = Math.random();
-    
-    
-    console.log("Did a run with random of: " + random);
-    console.error("I can also print to stderr");
-    
-    setTimeout(printSomeThings, 5000);
-
-    // anotherFunction();
-    
-    
-
-}
-
-printSomeThings()</div>
+	<div id="editor"></div>
 </div>
 
 	<div id='console'></div>
@@ -80,6 +65,10 @@ printSomeThings()</div>
 		socket.on('serverAceUpdate', function (data) {
 			setAceContent(data)
  		});
+
+
+ 		// ask for the ace message right away
+ 		socketSend('refreshAce', 'refresh');
 
 
 	</script>

@@ -33,6 +33,7 @@ function setAceContent(content) {
 
 }
 
+// run the code in the editor after script injection...
 function doRun() {
 	try {
 
@@ -42,14 +43,11 @@ function doRun() {
 		funct = funct.split("{").join("{ if(stopped)return; try {");
 		funct = funct.split("}").join("} catch(e) { consoleView.doFatalErrorResponse(e.stack) }}");
 
-
+        // exec the modified function
 		var temp = new Function(funct);
 		temp();
+
 	} catch(e) {
-		// append an identifier string so that we know this was an error (for now)
-		// console.log("WFwFP96nBjlNaR38Whgs" + e.message)
-		// var caller_line = (new Error).stack.split("\n")[4];
-		// console.log("Seeing: " + caller_line);
 		consoleView.doFatalErrorResponse(e.stack);
 	}
 }

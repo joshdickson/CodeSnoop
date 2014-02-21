@@ -1,7 +1,18 @@
 // Including libraries
 
 // globals
-var aceContents;
+var aceContents = 'function printSomeThings() {\n\n' + 
+    '\tvar random = Math.random();\n' + 
+    
+    
+    '\tconsole.log("Did a run with random of: " + random);\n' + 
+    '\tconsole.error("I can also print to stderr");\n' + 
+    
+    '\tsetTimeout(printSomeThings, 5000);\n\n' + 
+
+'}\n\n' + 
+
+'printSomeThings();\n\n'
 
 var app = require('http').createServer(handler),
     io = require('socket.io').listen(app),
@@ -48,9 +59,16 @@ io.sockets.on('connection', function (socket) {
         // cache ace contents
         aceContents = data;
 
-        console.log("New ACE contents... " + aceContents);
+        // console.log("New ACE contents... " + aceContents);
 
         // send the update to the other listeners
         socket.broadcast.emit('serverAceUpdate', data);
+    });
+
+    // return the current ace contents 
+    socket.on('refreshAce', function (data) {
+
+        socket.emit('serverAceUpdate', aceContents);
+
     });
 });
