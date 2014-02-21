@@ -55,18 +55,34 @@ printSomeThings()</div>
 	</script>
 
 	<!-- scripts -->
-	<script>
-
-
-	</script>
 	<script src="js/ace/ace.js" charset="utf-8"></script>
 	<script src="js/lib/jquery.js"></script>
 	<script src="js/lib/jqueryui.js"></script>
 	<script src="js/lib/underscore.js"></script>
 	<script src="js/lib/backbone.js"></script>
+	<script src="js/lib/socket.io.js"></script>
 	<script src="js/models.js"></script>
 	<script src="js/code.js"></script>
 	<script src="js/views.js"></script>
+
+	<script>
+
+		// staging area for javascript stuff before moving it out of here...
+		// connect to the server
+		socket = io.connect('http://localhost:2002');
+
+		// chirp a message to the node server
+		function socketSend(key, message) {
+			socket.emit(key, message);
+		}
+
+		// on an ace update, we have to update the ACE view...
+		socket.on('serverAceUpdate', function (data) {
+			setAceContent(data)
+ 		});
+
+
+	</script>
 
 
 </body>

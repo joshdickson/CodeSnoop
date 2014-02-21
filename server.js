@@ -17,7 +17,7 @@ var sock = 2002;
 
 // This is the port for our web server.
 // you will need to go to http://localhost:8080 to see it
-// app.listen(sock);
+app.listen(sock);
 
 // If the URL of the socket server is opened in a browser
 function handler (request, response) {
@@ -51,6 +51,6 @@ io.sockets.on('connection', function (socket) {
         console.log("New ACE contents... " + aceContents);
 
         // send the update to the other listeners
-        socket.broadcast.emit('aceUpdate', data);
+        socket.broadcast.emit('serverAceUpdate', data);
     });
 });
