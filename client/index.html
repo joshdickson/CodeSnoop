@@ -66,6 +66,16 @@
 			setAceContent(data)
  		});
 
+ 		// update a log event received from the server
+		socket.on('logEvent', function (data) {
+			consoleView.renderFromServer(data);
+ 		});
+
+		// update an error event received from the server
+ 		socket.on('errorEvent', function (data) {
+			consoleView.renderErrorFromServer(data);
+ 		});
+
 
  		// ask for the ace message right away
  		socketSend('refreshAce', 'refresh');

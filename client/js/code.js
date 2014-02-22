@@ -34,7 +34,7 @@ function setAceContent(content) {
 }
 
 // run the code in the editor after script injection...
-function doRun() {
+function run() {
 	try {
 
 		var funct = editor.getValue();

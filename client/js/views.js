@@ -62,12 +62,30 @@ var ConsoleView = Backbone.View.extend({
 	render: function(model) {
 		this.$el.append(this.logtemplate(model.toJSON()));
 
+		socketSend('logEvent', model.toJSON());
+
+		// scroll to the bottom of the div if necessary
+		$('#console').scrollTop($('#console')[0].scrollHeight);
+	},
+
+	renderFromServer: function(model) {
+		this.$el.append(this.logtemplate(model));
 		// scroll to the bottom of the div if necessary
 		$('#console').scrollTop($('#console')[0].scrollHeight);
 	},
 
 	renderError: function(model) {
 		this.$el.append(this.errortemplate(model.toJSON()));
+
+		socketSend('errorEvent', model.toJSON());
+
+		$('#console').scrollTop($('#console')[0].scrollHeight);
+	},
+
+
+	renderErrorFromServer: function(model) {
+		this.$el.append(this.errortemplate(model));
+
 		$('#console').scrollTop($('#console')[0].scrollHeight);
 	}
 });
@@ -77,6 +95,6 @@ setTimeout(setViews, 1000);
 
 function setViews() {
 	consoleView = new ConsoleView();
-	doRun();
+	// doRun();
 }
 
