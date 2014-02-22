@@ -53,7 +53,7 @@ The server can be started locally by running:
 
 ```$ node server.js```
 
-... from the main package at the command line. Navigate to http://localhost:2000/index.html to try
+... from the main package at the command line. Navigate to http://localhost:2000/index.html to start a new application instance.
 
 
 #### License
