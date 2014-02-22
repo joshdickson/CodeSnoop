@@ -7,7 +7,7 @@
 
 	<!-- fonts -->
 	<link href='http://fonts.googleapis.com/css?family=Cousine' rel='stylesheet' type='text/css'>
-	<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400' rel='stylesheet' type='text/css'>
 	    
 </head>
 
@@ -15,7 +15,13 @@
 
 <div id='wrapper'></div>
 
-	<div id='login-wrapper'>
+	<div id='header'>
+		
+		<img id="logo-image" src="/img/logo.png" />
+		
+	</div> 
+
+	<!-- <div id='login-wrapper'>
 
 		<div id="login">
 
@@ -24,25 +30,40 @@
 		</div>
 		
 			<p class='login-text'>Username</p>
-			<input type='text' placeholder='Sergey Brin' id='username' />
+			<input class='login-input' type='text' placeholder='Sergey Brin' id='username' />
 			<p class='login-text'>Admin Code</p>
-			<input type='password' id='adminCode' />
+			<input class='login-input' type='password' id='adminCode' />
 
-		</div> <!-- end login -->
+		</div>
+
+	</div> -->
 
 
+	<div id="chat">
+
+		<div id='chat-header' class='cf'>
+			<img id="chat-logo-image" src="/img/logo.png" />
+			<h5>WPI Google Hackathon Chat</h5>
+		</div>
+
+		<div id='text-log'></div>
+
+		<div id="text-entry">
+			<input type='text' id='chat-message' placeholder="Chat..." />
+		</div>
+		
 
 
-	</div> <!-- end login-wrapper -->
+	</div>
 
 	
 
 	<div id='codesnoop-wrapper'>
 
-		<!-- <div id="commands">
+		<div id="commands">
 			<button id="start-button">Run</button>
 			<button id="stop-button">Stop</button>
-		</div> -->
+		</div>
 
 		<div id="ace-wrapper">
 			<div id="editor"></div>
@@ -67,6 +88,13 @@
 			<p class="logger-linenumber"><%= lineNumber %></p>
 			<img class='error-icon' src='img/error-line-icon.png' />
 			<p class="logger-log-line error-line-text"><%= message %></p>
+		</div>
+	</script>
+
+	<script type='text/template' id='chat-entry'>
+		<div class='chat-entry'>
+			<p class="chat-entry-name"><%= firstName %><span id='strong'> <%= lastName %></span></p>
+			<p class="chat-message-text"><%= chatMessage %></p>
 		</div>
 	</script>
 
@@ -113,6 +141,11 @@
  			isRunning = (data == "true");
  		});
 
+ 		// update a chat event
+ 		socket.on('chatEvent', function(data){
+ 			chatView.newServerChatMessage(data);
+ 		});
+
  		// ask for the ace message right away
  		socketSend('refreshAce', 'refresh');
  		socketSend('status_running','status');
@@ -128,8 +161,18 @@
 		// do the listener to grab the user's name
 		$(document).ready(function() {
 
+			// initially hide the chat
+			$('#text-log').css('height', '0');
+			$('#text-entry').css('height', '0');
+
+			// debug sets
+			userName = "Josh Dickson";
+			isAdministrator = true;
+
 			$('#login').keypress(function (e) {
-			  	if (e.which == 13) {
+				// if pressing enter and they have a valid two word name
+			  	if (e.which == 13 && $('input#username').val().split(" ").length == 2) {
+			    	
 			    	userName = $('input#username').val();
 			    	adminCode = $('input#adminCode').val();
 
@@ -139,6 +182,13 @@
 			    		isAdministrator = false;
 			    	}
 
+			    	// notify the others that someone new is here...
+			    	var nameTokens = userName.split(" ");
+
+			    	var model = new ChatMessage({firstName: nameTokens[0], lastName: nameTokens[1], chatMessage: (nameTokens[0] + ' has joined the chat...')});
+
+			    	socketSend('chatEvent', model);
+
 			    	console.log(userName + " " + adminCode);
 
 			    	$('#login-wrapper').remove();
@@ -147,6 +197,45 @@
 			  	}
 			});
 
+
+
+			// set up the chat toggle to view / hide
+			$('#chat-header').click(function() {
+				// toggle the height of the chat elements to show/hide...
+				var currentHeight = $('#text-log').css('height');
+
+				if(currentHeight === '0px') {
+					$('#text-log').css('height', '500px');
+					$('#text-entry').css('height', '26px');
+					$('input#chat-message').focus();
+				} else {
+					$('#text-log').css('height', '0');
+					$('#text-entry').css('height', '0');
+				}
+			});
+
+			$('#text-entry').keypress(function (e) {
+			  	if (e.which == 13) {
+			    	message = $('input#chat-message').val();
+
+			    	if(message.length > 0) {
+
+			    		var nameTokens = userName.split(" ");
+
+			    		var model = new ChatMessage({firstName: nameTokens[0], lastName: nameTokens[1], chatMessage: message});
+
+			    		// log the message and emit to the server
+			    		chatView.newChatMessage(model);
+
+			    		$('input#chat-message').val("");
+
+			    	}
+			    	
+
+
+			    	return false;
+			  	}
+			});
 
 		});
 

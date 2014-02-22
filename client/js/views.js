@@ -2,6 +2,7 @@
 
 var consoleView;
 var commandView;
+var chatView;
 
 var ConsoleView = Backbone.View.extend({
 
@@ -135,10 +136,28 @@ var CommandView = Backbone.View.extend({
   		socketSend('status_running','false')
   	}
 
-
-
-
 });
+
+var ChatView = Backbone.View.extend({
+
+	el: $('#text-log'),
+
+	messageTemplate: _.template($('#chat-entry').html()),
+
+	newChatMessage: function(model) {
+		socketSend('chatEvent', model);
+		this.$el.append(this.messageTemplate(model.toJSON()));
+		$('#text-log').scrollTop($('#text-log')[0].scrollHeight);
+	},
+
+	newServerChatMessage: function(model) {
+		this.$el.append(this.messageTemplate(model));
+		$('#text-log').scrollTop($('#text-log')[0].scrollHeight);
+	}
+
+
+
+})
 
 
 
@@ -148,5 +167,6 @@ setTimeout(setViews, 1000);
 function setViews() {
 	consoleView = new ConsoleView();
 	commandView = new CommandView();
+	chatView = new ChatView();
 }
 

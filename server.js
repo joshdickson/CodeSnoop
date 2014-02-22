@@ -3,11 +3,23 @@
 // globals
 
 // the intial value that's at the server for the contents of ace to illustrate a loop
-var aceContents;
+var aceContents = 'function printSomeThings() {\n\n' + 
+    '\tvar random = Math.random();\n' + 
+    
+    
+    '\tconsole.log("Did a run with random of: " + random);\n' + 
+    '\tconsole.error("I can also print to stderr");\n' + 
+    
+    '\tsetTimeout(printSomeThings, 1000);\n\n' + 
+
+'}\n\n' + 
+
+'printSomeThings();\n\n';
 
 var lastPushToGoogle;
 
 var loggedEvents = [];
+var chatEvents = [];
 
 var isRunning = false;
 // do server set up
@@ -81,6 +93,16 @@ io.sockets.on('connection', function (socket) {
 
         // send the update to the other listeners
         socket.broadcast.emit('errorEvent', data);
+    });
+
+    // a client sent a new chat
+    socket.on('chatEvent', function (data) {
+
+        // cache the event
+        chatEvents.push('chatEvent', data);
+
+        // send the update to the other listeners
+        socket.broadcast.emit('chatEvent', data);
     });
 
     // return the current ace contents 
@@ -239,7 +261,7 @@ console.log("Downloading Google Doc")
     });
 
 }
-download_file()
+// download_file()
 
 
 // continuously loop to update the file if it's changed
