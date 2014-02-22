@@ -73,16 +73,17 @@
 
 		<div id="ace-wrapper">
 			<div id='fileName'>
-				<h5>WPIGoogleHackathonDemo.js on Google Drive</h5>
+				<h5 class="fileNameText">WPIGoogleHackathonDemo.js on Google Drive</h5>
+				<div id="commands">
+					<button id="start-button">Run</button>
+					<button id="stop-button">Stop</button>
+				</div>
 			</div>
 			<div id="editor"></div>
 		</div>
 
 		<div id='console-wrapper'>
-			<div id="commands">
-				<button id="start-button">Run</button>
-				<button id="stop-button">Stop</button>
-			</div>
+			
 			<div id='console'></div>
 		</div>
 
@@ -110,6 +111,13 @@
 		<div class='chat-entry'>
 			<p class="chat-entry-name"><%= firstName %><span id='strong'> <%= lastName %></span></p>
 			<p class="chat-message-text"><%= chatMessage %></p>
+		</div>
+	</script>
+
+	<script type='text/template' id='user-action'>
+		<div class='user-action'>
+			<p class="user-action-name"><%= firstName %> <%= lastName %></p>
+			<p class="user-action-text"><%= message %></p>
 		</div>
 	</script>
 
@@ -178,7 +186,7 @@
 
 			// fix the height of the console and editor windows;
 			var heightFix = $(window).height() - 56;
-			$('#console').css('height', (heightFix - 30) + 'px');
+			$('#console').css('height', (heightFix) + 'px');
 			$('#editor').css('height', (heightFix - 30) + 'px');
 
 

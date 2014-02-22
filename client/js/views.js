@@ -100,37 +100,56 @@ var CommandView = Backbone.View.extend({
 
 	el: $("#commands"),
 
+	actionTemplate: _.template($('#user-action').html()),
+
 	events: {
-    	"click #start-button":     			     	"runCode",
+    	"click #start-button":     			     "runCode",
     	"click #stop-button": 					"stopCode"
   	},
 
-  	doCommand: function() {
+  	doStartAction: function(model) {
+  		$("#console").append(this.actionTemplate(model.toJSON()));
+  	},
+
+  	// doCommand: function() {
   		
 
-  		if(!isRunning) {
-  			// do the code run
-  			stopped = false;
-  			isRunning = true;
-  			consoleView.reset();
-  			run();
+  	// 	if(!isRunning) {
+  	// 		// do the code run
+  	// 		stopped = false;
+  	// 		isRunning = true;
+  	// 		consoleView.reset();
+  	// 		run();
   			
-  		} else {
-  			// stop the current code run, say we're not running
-  			stopped = true;
-  			isRunning = false;
-  		}
-  	},
+  	// 	} else {
+  	// 		// stop the current code run, say we're not running
+  	// 		stopped = true;
+  	// 		isRunning = false;
+  	// 	}
+  	// },
   	runCode: function(){
-  		if(!isRunning){
+
+  		if(!isRunning) {
+
+  			consoleView.reset();
+
+  			var nameTokens = userName.split(" ");
+  			var model = new LoggerLine({firstName: nameTokens[0], lastName: nameTokens[1], message: "started a build..."})
+  			this.doStartAction(model);
+
   			stopped = false;
   			isRunning = true;
-  			consoleView.reset();
+  			
   			run();
   			socketSend('status_running','true')
   		}
   	},
   	stopCode: function(){
+
+  		var nameTokens = userName.split(" ");
+		var model = new LoggerLine({firstName: nameTokens[0], lastName: nameTokens[1], message: "stopped the build"})
+		this.doStartAction(model);
+
   		stopped = true;
   		isRunning = false;
   		socketSend('status_running','false')

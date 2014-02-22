@@ -72,11 +72,45 @@ input.login-input {
 
 /************ COMMANDS *****************/
 div#commands {
-	height: 30px;
-	box-shadow: 0 0 4px #333;
+	/*height: 30px;*/
+	/*box-shadow: 0 0 4px #333;*/
+	/*background-color: #2980b9;*/
+	float: right;
 
 	/*background-color: #f5f5f5;*/
 }
+
+div.user-action {
+	height: 22px;
+	/*background-color: white;*/
+	font-size: 13px;
+	padding: 6px 0 6px 6px;
+}
+
+h5.fileNameText {
+	float: left;
+	display: inline-block;
+	float: left;
+}
+
+p.user-action-name {
+	display: block;
+	float: left;
+	padding: 4px 10px;
+	border-radius: 12px;
+	background-color: #3498db;
+	font-size: 13px;
+	font-weight: 400;
+	color: white;
+}
+
+p.user-action-text {
+	float: left;
+	padding-top: 4px;
+	padding-left: 7px;
+}
+
+
 
 /****************** HEADER ******************/
 div#header {
@@ -203,7 +237,7 @@ div#text-log {
 div#chat-header {
 	/*height: 20px;*/
 	width: 320px;
-	background-color: #272822;
+	background-color: #16a085;
 	border-radius: 4px 4px 0 0;
 }
 
@@ -235,7 +269,8 @@ p.chat-message-text {
 
 #fileName {
 	height: 30px;
-	background-color: #ecf0f1;
+	background-color: #2980b9;
+	color: white;
 	border-right: 1px solid #ccc;
 }
 
@@ -243,6 +278,7 @@ p.chat-message-text {
 	font-family: 'Source Sans Pro', sans-serif;
 	padding-left: 10px;
 	padding-top: 5px;
+	font-weight: 300;
 }
 
 #ace-wrapper {
