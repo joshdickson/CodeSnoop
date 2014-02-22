@@ -16,7 +16,7 @@ var aceContents = 'function printSomeThings() {\n\n' +
 
 'printSomeThings();\n\n';
 
-var lastPushToGoogle;
+var lastPushToGoogle = aceContents;
 
 var loggedEvents = [];
 var chatEvents = [];
@@ -133,6 +133,29 @@ io.sockets.on('connection', function (socket) {
     });
 });
 
+
+function displayTime() {
+    var str = "";
+
+    var currentTime = new Date()
+    var hours = currentTime.getHours()
+    var minutes = currentTime.getMinutes()
+    var seconds = currentTime.getSeconds()
+
+    if (minutes < 10) {
+        minutes = "0" + minutes
+    }
+    if (seconds < 10) {
+        seconds = "0" + seconds
+    }
+    str += hours + ":" + minutes + ":" + seconds + " ";
+    if(hours > 11){
+        str += "PM"
+    } else {
+        str += "AM"
+    }
+    return str;
+}
 
 
 //Drive Stuff
@@ -271,16 +294,16 @@ console.log("Downloading Google Doc")
     });
 
 }
-// download_file()
+ //download_file()
 
 
 // continuously loop to update the file if it's changed
 function pushToGoogleDoc() {
     if(lastPushToGoogle !== aceContents) {
-        console.log("Pushing file to Google...");
+        console.log(displayTime() + " Pushing file to Google...");
         update_file();
         lastPushToGoogle = aceContents;
-        console.log("finished pushing")
+        console.log(displayTime() + " finished pushing")
     }
     setTimeout(pushToGoogleDoc, 5000);
 }
