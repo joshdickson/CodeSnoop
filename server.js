@@ -3,18 +3,7 @@
 // globals
 
 // the intial value that's at the server for the contents of ace to illustrate a loop
-var aceContents = 'function printSomeThings() {\n\n' + 
-    '\tvar random = Math.random();\n' + 
-    
-    
-    '\tconsole.log("Did a run with random of: " + random);\n' + 
-    '\tconsole.error("I can also print to stderr");\n' + 
-    
-    '\tsetTimeout(printSomeThings, 1000);\n\n' + 
-
-'}\n\n' + 
-
-'printSomeThings();\n\n';
+var aceContents;
 
 var lastPushToGoogle;
 
@@ -193,17 +182,78 @@ function update_file(){
 
 }
 
+
+function download_file(){
+console.log("Downloading Google Doc")
+    async.waterfall([
+      //-----------------------------
+      // Obtain a new access token
+      //-----------------------------
+      function(callback) {
+        var tokenProvider = new GoogleTokenProvider({
+          'refresh_token': REFRESH_TOKEN,
+          'client_id': CLIENT_ID,
+          'client_secret': CLIENT_SECRET
+        });
+        tokenProvider.getToken(callback)
+      },
+
+      function(accessToken, callback) {
+         request.get({
+              'url': 'https://www.googleapis.com/drive/v2/files/' + FILE_ID,
+              'headers' : {
+                'Authorization': 'Bearer ' + accessToken
+              }
+              
+            }, function(err, response, body) {
+                if(!err && response.statusCode == 200){
+                    var body = JSON.parse(body);
+                    request.get({
+                        'url': body.exportLinks["text/plain"],
+                        'headers' : {
+                            'Authorization': 'Bearer ' + accessToken
+                        }
+                  
+                        }, callback);
+                }
+            });
+           
+      },
+
+      //----------------------------
+      // Parse the response
+      //----------------------------
+      function(response, body, callback) {
+        callback(null, body);
+      }
+
+    ], function(err, results) {
+      if (!err) {
+        console.log("Finished Download. you may use your app")
+         aceContents = results.substr(1);
+         lastPushToGoogle = aceContents
+      } else {
+        console.error('---error');
+        console.error(err);
+      }
+    });
+
+}
+download_file()
+
+
 // continuously loop to update the file if it's changed
 function pushToGoogleDoc() {
     if(lastPushToGoogle !== aceContents) {
         console.log("Pushing file to Google...");
-        // update_file();
+        update_file();
         lastPushToGoogle = aceContents;
+        console.log("finished pushing")
     }
     setTimeout(pushToGoogleDoc, 5000);
 }
 
-setTimeout(pushToGoogleDoc, 5000);
+pushToGoogleDoc();
 
 
 
