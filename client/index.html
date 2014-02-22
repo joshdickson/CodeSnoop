@@ -28,7 +28,7 @@
 
 	</div> 
 
-	<!-- <div id='login-wrapper'>
+	<div id='login-wrapper'>
 
 		<div id="login">
 
@@ -45,7 +45,7 @@
 
 		</div>
 
-	</div> -->
+	</div>
 
 
 	<div id="chat">
@@ -75,8 +75,8 @@
 			<div id='fileName'>
 				<h5 class="fileNameText">WPIGoogleHackathonDemo.js on Google Drive</h5>
 				<div id="commands">
-					<button id="start-button">Run</button>
-					<button id="stop-button">Stop</button>
+					<a href="#" id="start-button">Run</a>
+					<a href="#" id="stop-button">Stop</a>
 				</div>
 			</div>
 			<div id="editor"></div>
@@ -158,10 +158,27 @@
 			consoleView.renderErrorFromServer(data);
  		});
 
+ 		// update a user event from the server
+ 		socket.on('console_action', function (data) {
+			commandView.serverConsoleEvent(data);
+ 		});
+
  		// on status update, update our variables
- 		socket.on('server_status', function(data){
+ 		socket.on('status_running', function(data){
+
  			stopped = !(data == "true");
  			isRunning = (data == "true");
+
+ 			// console.log(data);
+
+ 			if(data === 'true') {
+ 				// clear the console because someone else is building and we want to clear!
+ 				consoleView.reset();
+ 				consoleView.showStop();
+ 			} else {
+ 				consoleView.showRun();
+ 			}
+ 			
  		});
 
  		// update a chat event
@@ -171,7 +188,7 @@
 
  		// ask for the ace message right away
  		socketSend('refreshAce', 'refresh');
- 		socketSend('status_running','status');
+ 		// socketSend('status_running','status');
 
 
 	</script>
@@ -187,7 +204,7 @@
 			// fix the height of the console and editor windows;
 			var heightFix = $(window).height() - 56;
 			$('#console').css('height', (heightFix) + 'px');
-			$('#editor').css('height', (heightFix - 30) + 'px');
+			$('#editor').css('height', (heightFix - 42) + 'px');
 
 
 			// initially hide the chat
@@ -196,12 +213,12 @@
 			$('#chat-message').hide();
 
 			// debug sets
-			userName = "Josh Dickson";
-			isAdministrator = true;
-			var nameTokens = userName.split(" ");
-			$('#header-first').html(nameTokens[0]);
-			$('#header-last').html(nameTokens[1]);
-			editor.setReadOnly(false);
+			// userName = "Josh Dickson";
+			// isAdministrator = true;
+			// var nameTokens = userName.split(" ");
+			// $('#header-first').html(nameTokens[0]);
+			// $('#header-last').html(nameTokens[1]);
+			// editor.setReadOnly(false);
 
 			$('#login').keypress(function (e) {
 				// if pressing enter and they have a valid two word name

@@ -105,6 +105,13 @@ io.sockets.on('connection', function (socket) {
         socket.broadcast.emit('chatEvent', data);
     });
 
+    // send console actions
+    socket.on('console_action', function (data) {
+
+        // send the update to the other listeners
+        socket.broadcast.emit('console_action', data);
+    });
+
     // return the current ace contents 
     socket.on('refreshAce', function (data) {
 
@@ -113,13 +120,16 @@ io.sockets.on('connection', function (socket) {
     });
 
     // return the running status or change the status
-    socket.on('status_running', function (data){
-        if(data == "status"){
-            socket.emit("server_status", '' + isRunning);
-        }else{
-            isRunning = (data == "true");
-            socket.broadcast.emit("server_status", '' + isRunning);
-        }
+    socket.on('status_running', function (data) {
+
+
+        socket.broadcast.emit('status_running', data);
+        // if(data == "status"){
+        //     socket.emit("server_status", '' + isRunning);
+        // }else{
+        //     isRunning = (data == "true");
+        //     socket.broadcast.emit("server_status", '' + isRunning);
+        // }
     });
 });
 

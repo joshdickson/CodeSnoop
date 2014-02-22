@@ -92,6 +92,14 @@ var ConsoleView = Backbone.View.extend({
 		this.$el.append(this.errortemplate(model));
 
 		$('#console').scrollTop($('#console')[0].scrollHeight);
+	},
+
+	showStop: function() {
+		$('#start-button').css('z-index', 35);
+	},
+
+	showRun: function() {
+		$('#start-button').css('z-index', 45);
 	}
 });
 
@@ -127,32 +135,53 @@ var CommandView = Backbone.View.extend({
   	// 		isRunning = false;
   	// 	}
   	// },
+
+  	serverConsoleEvent: function(model) {
+  		$("#console").append(this.actionTemplate(model));
+  	},
+
+
   	runCode: function(){
 
-  		if(!isRunning) {
+  		if(!isRunning && isAdministrator) {
+
+  			socketSend('status_running', "true");
 
   			consoleView.reset();
+
+  			consoleView.showStop();
 
   			var nameTokens = userName.split(" ");
   			var model = new LoggerLine({firstName: nameTokens[0], lastName: nameTokens[1], message: "started a build..."})
   			this.doStartAction(model);
 
+  			socketSend('console_action', model);
+
   			stopped = false;
   			isRunning = true;
   			
   			run();
-  			socketSend('status_running','true')
+  			
   		}
   	},
   	stopCode: function(){
 
-  		var nameTokens = userName.split(" ");
-		var model = new LoggerLine({firstName: nameTokens[0], lastName: nameTokens[1], message: "stopped the build"})
-		this.doStartAction(model);
+  		if(isRunning && isAdministrator) {
 
-  		stopped = true;
-  		isRunning = false;
-  		socketSend('status_running','false')
+  			socketSend('status_running', "false")
+
+  			consoleView.showRun();
+
+	  		var nameTokens = userName.split(" ");
+			var model = new LoggerLine({firstName: nameTokens[0], lastName: nameTokens[1], message: "stopped the build"})
+			this.doStartAction(model);
+
+			socketSend('console_action', model);
+
+	  		stopped = true;
+	  		isRunning = false;
+	  		
+  		}
   	}
 
 });
