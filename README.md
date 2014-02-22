@@ -5,7 +5,7 @@
 Codesnoop is an entry for the 2014 Google and WPI hosted Hackathon. It's a gorgeous way to collaborate with your friends in real time, and we're really excited to show it off.
 
 ![](http://imgur.com/x94NgCs)
-[Imgur](http://i.imgur.com/x94NgCs.jpg)
+![](http://i.imgur.com/x94NgCs.jpg)
 
 #### Overview
 
