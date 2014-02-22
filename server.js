@@ -166,9 +166,9 @@ const CLIENT_ID = "805484943624-vps025nfja9lk7m3h2ntfd5qiunbuud9.apps.googleuser
 const CLIENT_SECRET = "wedUaVCLZCTfoNL8sVCFFLYl";
 const REFRESH_TOKEN = "1/OdfrhBbds5j1u8vfR1l_h50cFLDdSrEMhHykH5KkicA";
 const ENDPOINT_OF_GDRIVE = 'https://www.googleapis.com/drive/v2';
-const FILE_ID = '1OY1cz15Dk3FI3gQcPsyh-3Jt5Py3aDHsQMlUbn4c3Z4';
+const FILE_ID = '0B6Xjjqimim9oN3BlbVg0aEJSUEU';
 
-const FILE_NAME = 'test.txt';
+const FILE_NAME = 'code.js';
 
 var async = require('async'),
     request = require('request'),
@@ -264,7 +264,7 @@ console.log("Downloading Google Doc")
                 if(!err && response.statusCode == 200){
                     var body = JSON.parse(body);
                     request.get({
-                        'url': body.exportLinks["text/plain"],
+                        'url': body.downloadUrl,
                         'headers' : {
                             'Authorization': 'Bearer ' + accessToken
                         }
@@ -285,7 +285,7 @@ console.log("Downloading Google Doc")
     ], function(err, results) {
       if (!err) {
         console.log("Finished Download. you may use your app")
-         aceContents = results.substr(1);
+         aceContents = results;
          lastPushToGoogle = aceContents
       } else {
         console.error('---error');
@@ -294,7 +294,8 @@ console.log("Downloading Google Doc")
     });
 
 }
- //download_file()
+
+//download_file()
 
 
 // continuously loop to update the file if it's changed
