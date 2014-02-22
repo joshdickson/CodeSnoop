@@ -2,8 +2,6 @@
 
 var consoleView;
 var commandView;
-var stopped = false;
-var isRunning = false;
 
 var ConsoleView = Backbone.View.extend({
 
@@ -102,7 +100,8 @@ var CommandView = Backbone.View.extend({
 	el: $("#commands"),
 
 	events: {
-    	"click #console-command-button":          "doCommand"
+    	"click #start-button":     			     	"runCode",
+    	"click #stop-button": 					"stopCode"
   	},
 
   	doCommand: function() {
@@ -120,6 +119,20 @@ var CommandView = Backbone.View.extend({
   			stopped = true;
   			isRunning = false;
   		}
+  	},
+  	runCode: function(){
+  		if(!isRunning){
+  			stopped = false;
+  			isRunning = true;
+  			consoleView.reset();
+  			run();
+  			socketSend('status_running','true')
+  		}
+  	},
+  	stopCode: function(){
+  		stopped = true;
+  		isRunning = false;
+  		socketSend('status_running','false')
   	}
 
 

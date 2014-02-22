@@ -18,7 +18,7 @@ var aceContents = 'function printSomeThings() {\n\n' +
 
 var loggedEvents = [];
 
-
+var isRunning = false;
 // do server set up
 
 
@@ -97,6 +97,16 @@ io.sockets.on('connection', function (socket) {
 
         socket.emit('serverAceUpdate', aceContents);
 
+    });
+
+    // return the running status or change the status
+    socket.on('status_running', function (data){
+        if(data == "status"){
+            socket.emit("server_status", '' + isRunning);
+        }else{
+            isRunning = (data == "true");
+            socket.broadcast.emit("server_status", '' + isRunning);
+        }
     });
 });
 

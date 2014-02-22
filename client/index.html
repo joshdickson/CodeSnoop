@@ -16,7 +16,8 @@
 
 
 	<div id="commands">
-		<div id='console-command-button'>Stop/Go Button</div>
+		<button id="start-button">Run</button>
+		<button id="stop-button">Stop</button>
 	</div>
 
 	<div id="ace-wrapper">
@@ -78,8 +79,15 @@
 			consoleView.renderErrorFromServer(data);
  		});
 
+ 		// on status update, update our variables
+ 		socket.on('server_status', function(data){
+ 			stopped = !(data == "true");
+ 			isRunning = (data == "true");
+ 		});
+
  		// ask for the ace message right away
  		socketSend('refreshAce', 'refresh');
+ 		socketSend('status_running','status');
 
 
 	</script>
