@@ -7,24 +7,52 @@
 
 	<!-- fonts -->
 	<link href='http://fonts.googleapis.com/css?family=Cousine' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300' rel='stylesheet' type='text/css'>
 	    
-	</style>
 </head>
 
 <body>
 
+<div id='wrapper'></div>
+
+	<div id='login-wrapper'>
+
+		<div id="login">
+
+		<div id="logo">
+			<img id="logo-image" src="/img/logo.png" />
+		</div>
+		
+			<p class='login-text'>Username</p>
+			<input type='text' placeholder='Sergey Brin' id='username' />
+			<p class='login-text'>Admin Code</p>
+			<input type='password' id='adminCode' />
+
+		</div> <!-- end login -->
 
 
-	<div id="commands">
-		<button id="start-button">Run</button>
-		<button id="stop-button">Stop</button>
-	</div>
 
-	<div id="ace-wrapper">
-		<div id="editor"></div>
-	</div>
 
-	<div id='console'></div>
+	</div> <!-- end login-wrapper -->
+
+	
+
+	<div id='codesnoop-wrapper'>
+
+		<!-- <div id="commands">
+			<button id="start-button">Run</button>
+			<button id="stop-button">Stop</button>
+		</div> -->
+
+		<div id="ace-wrapper">
+			<div id="editor"></div>
+		</div>
+
+		<div id='console'></div>
+
+	</div> <!-- end codesnoop-wrapper -->
+
+<div> <!-- end wrapper -->
 
 	<!-- underscore templates -->
 	<script type='text/template' id='log-line'>
@@ -88,6 +116,39 @@
  		// ask for the ace message right away
  		socketSend('refreshAce', 'refresh');
  		socketSend('status_running','status');
+
+
+	</script>
+
+	<script>
+
+		var userName;
+		var isAdministrator;
+
+		// do the listener to grab the user's name
+		$(document).ready(function() {
+
+			$('#login').keypress(function (e) {
+			  	if (e.which == 13) {
+			    	userName = $('input#username').val();
+			    	adminCode = $('input#adminCode').val();
+
+			    	if(adminCode === 'kodiak') {
+			    		isAdministrator = true;
+			    	} else {
+			    		isAdministrator = false;
+			    	}
+
+			    	console.log(userName + " " + adminCode);
+
+			    	$('#login-wrapper').remove();
+
+			    	return false;
+			  	}
+			});
+
+
+		});
 
 
 	</script>
