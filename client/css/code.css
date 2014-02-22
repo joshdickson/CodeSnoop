@@ -1,9 +1,6 @@
 
 
 /************** Login Pieces ****************/
-div#wrapper {
-	/*position: relative;*/
-}
 
 div#login-wrapper {
 	position: absolute;
@@ -38,7 +35,6 @@ div#logo {
 img#logo-image {
 	width: 60px;
 	padding: 8px 0;
-	/*padding-left: 150px;*/
 }
 
 .login-text {
@@ -72,13 +68,7 @@ input.login-input {
 
 /************ COMMANDS *****************/
 div#commands {
-	/*height: 30px;*/
-	/*box-shadow: 0 0 4px #333;*/
-	/*background-color: #2980b9;*/
-	/*float: right;*/
 	position: relative;
-
-	/*background-color: #f5f5f5;*/
 }
 
 a#start-button, a#stop-button {

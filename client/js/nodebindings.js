@@ -32,8 +32,6 @@ socket.on('logEvent', function (data) {
 		stopped = !(data == "true");
 		isRunning = (data == "true");
 
-		// console.log(data);
-
 		if(data === 'true') {
 			// clear the console because someone else is building and we want to clear!
 			consoleView.reset();
