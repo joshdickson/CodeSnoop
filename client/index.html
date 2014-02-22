@@ -15,11 +15,13 @@
 
 
 
+	<div id="commands">
+		<div id='console-command-button'>Stop/Go Button</div>
+	</div>
 
-<div id="ace-wrapper">
-
-	<div id="editor"></div>
-</div>
+	<div id="ace-wrapper">
+		<div id="editor"></div>
+	</div>
 
 	<div id='console'></div>
 
@@ -75,7 +77,6 @@
  		socket.on('errorEvent', function (data) {
 			consoleView.renderErrorFromServer(data);
  		});
-
 
  		// ask for the ace message right away
  		socketSend('refreshAce', 'refresh');

@@ -1,7 +1,9 @@
 // views.js
 
 var consoleView;
+var commandView;
 var stopped = false;
+var isRunning = false;
 
 var ConsoleView = Backbone.View.extend({
 
@@ -46,7 +48,6 @@ var ConsoleView = Backbone.View.extend({
 	},
 
 	doFatalErrorResponse: function(message) {
-		// console.log("Saw: " + message);
 		model = new LoggerLine({ lineNumber: this._lineCounter, message: ("Error: " + message)})
 		this._lineCounter++;
 		this.$el.append(this.errortemplate(model.toJSON()));
@@ -57,6 +58,11 @@ var ConsoleView = Backbone.View.extend({
 		// sometimes this doesn't scroll to the bottom (execution is laggy a bit, so we'll re'scroll)
 		setTimeout(this.scrollBottom(), 100);
 
+	},
+
+	reset: function() {
+		$('#console').empty();
+		this._lineCounter = 1;
 	},
 
 	render: function(model) {
@@ -91,10 +97,43 @@ var ConsoleView = Backbone.View.extend({
 });
 
 
+var CommandView = Backbone.View.extend({
+
+	el: $("#commands"),
+
+	events: {
+    	"click #console-command-button":          "doCommand"
+  	},
+
+  	doCommand: function() {
+  		
+
+  		if(!isRunning) {
+  			// do the code run
+  			stopped = false;
+  			isRunning = true;
+  			consoleView.reset();
+  			run();
+  			
+  		} else {
+  			// stop the current code run, say we're not running
+  			stopped = true;
+  			isRunning = false;
+  		}
+  	}
+
+
+
+
+});
+
+
+
+// do view init routine
 setTimeout(setViews, 1000);
 
 function setViews() {
 	consoleView = new ConsoleView();
-	// doRun();
+	commandView = new CommandView();
 }
 

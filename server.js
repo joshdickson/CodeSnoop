@@ -10,7 +10,7 @@ var aceContents = 'function printSomeThings() {\n\n' +
     '\tconsole.log("Did a run with random of: " + random);\n' + 
     '\tconsole.error("I can also print to stderr");\n' + 
     
-    '\tsetTimeout(printSomeThings, 5000);\n\n' + 
+    '\tsetTimeout(printSomeThings, 1000);\n\n' + 
 
 '}\n\n' + 
 
