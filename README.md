@@ -3,7 +3,7 @@
 #### Overview
 
 
-![alt text](files/client/img/loginscreen.png)
+![alt text](https://www.dropbox.com/s/rbm1zx2ilxsu6f7/loginscreen.png)
 
 
 
