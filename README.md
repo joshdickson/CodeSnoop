@@ -3,7 +3,7 @@
 #### Overview
 
 
-![alt text](/client/img/loginscreen.png)
+![alt text](files/client/img/loginscreen.png)
 
 
 
