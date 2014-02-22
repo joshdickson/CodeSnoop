@@ -5,6 +5,9 @@
 	<link rel="stylesheet" href="css/reset.css">
 	<link rel="stylesheet" href="css/code.css">
 
+	<!-- meta -->
+	<title>codesnoop - Real time code collaboration platform</title>
+
 	<!-- fonts -->
 	<link href='http://fonts.googleapis.com/css?family=Cousine' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400' rel='stylesheet' type='text/css'>
@@ -13,83 +16,80 @@
 
 <body>
 
-<div id='wrapper'></div>
+	<!-- body html -->
+	<div id='wrapper'></div>
 
-	<div id='header'>
-		
-		<img id="logo-image-header" src="/img/logo.png" />
-		<h3 id="company-logo">codesnoop</h3>
-
-		<div id='header-name'>
-			<img id='verified-user' src='img/verified.png' />
-			<h4 id="header-first"></h4>
-			<h4 id="header-last"></h4>
-		</div>
-
-	</div> 
-
-	<div id='login-wrapper'>
-
-		<div id="login">
-
-			<a href="https://github.com/joshdickson40/CodeSnoop"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://github-camo.global.ssl.fastly.net/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
-
-			<div id="logo">
-				<img id="logo-image" src="/img/logo.png" />
-			</div>
+		<div id='header'>
 			
-			<p class='login-text'>Username</p>
-			<input class='login-input' type='text' placeholder='Sergey Brin' id='username' />
-			<p class='login-text'>Admin Code</p>
-			<input class='login-input' type='password' id='adminCode' />
+			<img id="logo-image-header" src="/img/logo.png" />
+			<h3 id="company-logo">codesnoop</h3>
 
-		</div>
+			<div id='header-name'>
+				<img id='verified-user' src='img/verified.png' />
+				<h4 id="header-first"></h4>
+				<h4 id="header-last"></h4>
+			</div>
 
-	</div>
+		</div> 
 
+		<div id='login-wrapper'>
 
-	<div id="chat">
+			<div id="login">
 
-		<div id='chat-header' class='cf'>
-			<img id="chat-logo-image" src="/img/logo.png" />
-			<h5>WPI Google Hackathon Chat</h5>
-		</div>
+				<a href="https://github.com/joshdickson40/CodeSnoop"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://github-camo.global.ssl.fastly.net/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
 
-		<div id='text-log'></div>
-
-		<div id="text-entry">
-			<input type='text' id='chat-message' placeholder="Chat..." />
-		</div>
-		
-
-
-	</div>
-
-	
-
-	<div id='codesnoop-wrapper'>
-
-		
-
-		<div id="ace-wrapper">
-			<div id='fileName'>
-				<h5 class="fileNameText">WPIGoogleHackathonDemo.js on Google Drive</h5>
-				<div id="commands">
-					<a href="#" id="start-button">Run</a>
-					<a href="#" id="stop-button">Stop</a>
+				<div id="logo">
+					<img id="logo-image" src="/img/logo.png" />
 				</div>
+				
+				<p class='login-text'>Username</p>
+				<input class='login-input' type='text' placeholder='Sergey Brin' id='username' />
+				<p class='login-text'>Admin Code</p>
+				<input class='login-input' type='password' id='adminCode' />
+
 			</div>
-			<div id="editor"></div>
+
 		</div>
 
-		<div id='console-wrapper'>
+
+		<div id="chat">
+
+			<div id='chat-header' class='cf'>
+				<img id="chat-logo-image" src="/img/logo.png" />
+				<h5>WPI Google Hackathon Chat</h5>
+			</div>
+
+			<div id='text-log'></div>
+
+			<div id="text-entry">
+				<input type='text' id='chat-message' placeholder="Chat..." />
+			</div>
 			
-			<div id='console'></div>
+
+
 		</div>
 
-	</div> <!-- end codesnoop-wrapper -->
 
-<div> <!-- end wrapper -->
+		<div id='codesnoop-wrapper'>		
+
+			<div id="ace-wrapper">
+				<div id='fileName'>
+					<h5 class="fileNameText">WPIGoogleHackathonDemo.js on Google Drive</h5>
+					<div id="commands">
+						<a href="#" id="start-button">Run</a>
+						<a href="#" id="stop-button">Stop</a>
+					</div>
+				</div>
+				<div id="editor"></div>
+			</div>
+
+			<div id='console-wrapper'>
+				<div id='console'></div>
+			</div>
+
+		</div> <!-- end codesnoop-wrapper -->
+
+	<div> <!-- end wrapper -->
 
 	<!-- underscore templates -->
 	<script type='text/template' id='log-line'>
@@ -131,177 +131,7 @@
 	<script src="js/models.js"></script>
 	<script src="js/code.js"></script>
 	<script src="js/views.js"></script>
-
-	<script>
-
-		// staging area for javascript stuff before moving it out of here...
-		// connect to the server
-		socket = io.connect('http://localhost:2002');
-
-		// chirp a message to the node server
-		function socketSend(key, message) {
-			socket.emit(key, message);
-		}
-
-		// on an ace update, we have to update the ACE view...
-		socket.on('serverAceUpdate', function (data) {
-			setAceContent(data)
- 		});
-
- 		// update a log event received from the server
-		socket.on('logEvent', function (data) {
-			consoleView.renderFromServer(data);
- 		});
-
-		// update an error event received from the server
- 		socket.on('errorEvent', function (data) {
-			consoleView.renderErrorFromServer(data);
- 		});
-
- 		// update a user event from the server
- 		socket.on('console_action', function (data) {
-			commandView.serverConsoleEvent(data);
- 		});
-
- 		// on status update, update our variables
- 		socket.on('status_running', function(data){
-
- 			stopped = !(data == "true");
- 			isRunning = (data == "true");
-
- 			// console.log(data);
-
- 			if(data === 'true') {
- 				// clear the console because someone else is building and we want to clear!
- 				consoleView.reset();
- 				consoleView.showStop();
- 			} else {
- 				consoleView.showRun();
- 			}
- 			
- 		});
-
- 		// update a chat event
- 		socket.on('chatEvent', function(data){
- 			chatView.newServerChatMessage(data);
- 		});
-
- 		// ask for the ace message right away
- 		socketSend('refreshAce', 'refresh');
- 		// socketSend('status_running','status');
-
-
-	</script>
-
-	<script>
-
-		var userName;
-		var isAdministrator;
-
-		// do the listener to grab the user's name
-		$(document).ready(function() {
-
-			// fix the height of the console and editor windows;
-			var heightFix = $(window).height() - 56;
-			$('#console').css('height', (heightFix) + 'px');
-			$('#editor').css('height', (heightFix - 42) + 'px');
-
-
-			// initially hide the chat
-			$('#text-log').css('height', '0');
-			$('#text-entry').css('height', '0');
-			$('#chat-message').hide();
-
-			// debug sets
-			// userName = "Josh Dickson";
-			// isAdministrator = true;
-			// var nameTokens = userName.split(" ");
-			// $('#header-first').html(nameTokens[0]);
-			// $('#header-last').html(nameTokens[1]);
-			// editor.setReadOnly(false);
-
-			$('#login').keypress(function (e) {
-				// if pressing enter and they have a valid two word name
-			  	if (e.which == 13 && $('input#username').val().split(" ").length == 2) {
-			    	
-			    	userName = $('input#username').val();
-			    	adminCode = $('input#adminCode').val();
-
-			    	if(adminCode === 'kodiak') {
-			    		isAdministrator = true;
-			    		editor.setReadOnly(false);
-			    	} else {
-			    		isAdministrator = false;
-			    		$('#verified-user').css('display', 'none');
-			    	}
-
-			    	// notify the others that someone new is here...
-			    	var nameTokens = userName.split(" ");
-
-			    	var nameTokens = userName.split(" ");
-					$('#header-first').html(nameTokens[0]);
-					$('#header-last').html(nameTokens[1]);
-
-			    	var model = new ChatMessage({firstName: nameTokens[0], lastName: nameTokens[1], chatMessage: (nameTokens[0] + ' has joined the chat...')});
-
-			    	socketSend('chatEvent', model);
-
-			    	// console.log(userName + " " + adminCode);
-
-			  
-
-			    	$('#login-wrapper').remove();
-
-			    	return false;
-			  	}
-			});
-
-
-
-			// set up the chat toggle to view / hide
-			$('#chat-header').click(function() {
-				// toggle the height of the chat elements to show/hide...
-				var currentHeight = $('#text-log').css('height');
-
-				if(currentHeight === '0px') {
-					$('#text-log').css('height', '500px');
-					$('#text-entry').css('height', '26px');
-					$('#chat-message').show();
-					$('input#chat-message').focus();
-				} else {
-					$('#text-log').css('height', '0');
-					$('#text-entry').css('height', '0');
-					$('#chat-message').hide();
-				}
-			});
-
-			$('#text-entry').keypress(function (e) {
-			  	if (e.which == 13) {
-			    	message = $('input#chat-message').val();
-
-			    	if(message.length > 0) {
-
-			    		var nameTokens = userName.split(" ");
-
-			    		var model = new ChatMessage({firstName: nameTokens[0], lastName: nameTokens[1], chatMessage: message});
-
-			    		// log the message and emit to the server
-			    		chatView.newChatMessage(model);
-
-			    		$('input#chat-message').val("");
-
-			    	}
-			    	
-
-
-			    	return false;
-			  	}
-			});
-
-		});
-
-
-	</script>
+	<script src="js/nodebindings.js"></script>
 
 
 </body>
