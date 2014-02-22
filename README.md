@@ -6,6 +6,12 @@ Codesnoop is an entry for the 2014 Google and WPI hosted Hackathon. It's a gorge
 
 ![](http://i.imgur.com/x94NgCs.jpg)
 
+Simple log in.
+
+![](http://i.imgur.com/n1DnwdN.png)
+
+Easy collaboration.
+
 
 #### Overview
 
