@@ -161,12 +161,12 @@ function displayTime() {
 //Drive Stuff
 //Drive stuff
 var GoogleTokenProvider = require("refresh-token").GoogleTokenProvider;
-
-const CLIENT_ID = "805484943624-vps025nfja9lk7m3h2ntfd5qiunbuud9.apps.googleusercontent.com";
-const CLIENT_SECRET = "wedUaVCLZCTfoNL8sVCFFLYl";
+// Stuff has been hidden
+const CLIENT_ID = "NO";
+const CLIENT_SECRET = "NOPE";
 const REFRESH_TOKEN = "1/OdfrhBbds5j1u8vfR1l_h50cFLDdSrEMhHykH5KkicA";
 const ENDPOINT_OF_GDRIVE = 'https://www.googleapis.com/drive/v2';
-const FILE_ID = '0B6Xjjqimim9oN3BlbVg0aEJSUEU';
+const FILE_ID = 'EH';
 
 const FILE_NAME = 'code.js';
 
