@@ -1,5 +1,5 @@
 // connect to the server
-socket = io.connect('http://localhost:2002');
+socket = io.connect(':2002');
 
 // chirp a message to the node server
 function socketSend(key, message) {
