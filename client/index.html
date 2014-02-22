@@ -17,18 +17,27 @@
 
 	<div id='header'>
 		
-		<img id="logo-image" src="/img/logo.png" />
-		
+		<img id="logo-image-header" src="/img/logo.png" />
+		<h3 id="company-logo">codesnoop</h3>
+
+		<div id='header-name'>
+			<img id='verified-user' src='img/verified.png' />
+			<h4 id="header-first"></h4>
+			<h4 id="header-last"></h4>
+		</div>
+
 	</div> 
 
 	<!-- <div id='login-wrapper'>
 
 		<div id="login">
 
-		<div id="logo">
-			<img id="logo-image" src="/img/logo.png" />
-		</div>
-		
+			<a href="https://github.com/joshdickson40/CodeSnoop"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://github-camo.global.ssl.fastly.net/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+			<div id="logo">
+				<img id="logo-image" src="/img/logo.png" />
+			</div>
+			
 			<p class='login-text'>Username</p>
 			<input class='login-input' type='text' placeholder='Sergey Brin' id='username' />
 			<p class='login-text'>Admin Code</p>
@@ -60,16 +69,22 @@
 
 	<div id='codesnoop-wrapper'>
 
-		<div id="commands">
-			<button id="start-button">Run</button>
-			<button id="stop-button">Stop</button>
-		</div>
+		
 
 		<div id="ace-wrapper">
+			<div id='fileName'>
+				<h5>WPIGoogleHackathonDemo.js on Google Drive</h5>
+			</div>
 			<div id="editor"></div>
 		</div>
 
-		<div id='console'></div>
+		<div id='console-wrapper'>
+			<div id="commands">
+				<button id="start-button">Run</button>
+				<button id="stop-button">Stop</button>
+			</div>
+			<div id='console'></div>
+		</div>
 
 	</div> <!-- end codesnoop-wrapper -->
 
@@ -161,13 +176,24 @@
 		// do the listener to grab the user's name
 		$(document).ready(function() {
 
+			// fix the height of the console and editor windows;
+			var heightFix = $(window).height() - 56;
+			$('#console').css('height', (heightFix - 30) + 'px');
+			$('#editor').css('height', (heightFix - 30) + 'px');
+
+
 			// initially hide the chat
 			$('#text-log').css('height', '0');
 			$('#text-entry').css('height', '0');
+			$('#chat-message').hide();
 
 			// debug sets
 			userName = "Josh Dickson";
 			isAdministrator = true;
+			var nameTokens = userName.split(" ");
+			$('#header-first').html(nameTokens[0]);
+			$('#header-last').html(nameTokens[1]);
+			editor.setReadOnly(false);
 
 			$('#login').keypress(function (e) {
 				// if pressing enter and they have a valid two word name
@@ -178,18 +204,26 @@
 
 			    	if(adminCode === 'kodiak') {
 			    		isAdministrator = true;
+			    		editor.setReadOnly(false);
 			    	} else {
 			    		isAdministrator = false;
+			    		$('#verified-user').css('display', 'none');
 			    	}
 
 			    	// notify the others that someone new is here...
 			    	var nameTokens = userName.split(" ");
 
+			    	var nameTokens = userName.split(" ");
+					$('#header-first').html(nameTokens[0]);
+					$('#header-last').html(nameTokens[1]);
+
 			    	var model = new ChatMessage({firstName: nameTokens[0], lastName: nameTokens[1], chatMessage: (nameTokens[0] + ' has joined the chat...')});
 
 			    	socketSend('chatEvent', model);
 
-			    	console.log(userName + " " + adminCode);
+			    	// console.log(userName + " " + adminCode);
+
+			  
 
 			    	$('#login-wrapper').remove();
 
@@ -207,10 +241,12 @@
 				if(currentHeight === '0px') {
 					$('#text-log').css('height', '500px');
 					$('#text-entry').css('height', '26px');
+					$('#chat-message').show();
 					$('input#chat-message').focus();
 				} else {
 					$('#text-log').css('height', '0');
 					$('#text-entry').css('height', '0');
+					$('#chat-message').hide();
 				}
 			});
 

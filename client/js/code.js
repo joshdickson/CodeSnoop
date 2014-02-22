@@ -4,6 +4,7 @@ var globalSetInProgress = false;
 var editor = ace.edit("editor");
 editor.setTheme("ace/theme/monokai");
 editor.getSession().setMode("ace/mode/javascript");
+editor.setReadOnly(true);
 
 
 editor.getSession().on('change', function(e) {
@@ -17,8 +18,6 @@ editor.getSession().on('change', function(e) {
 
 function setAceContent(content) {
 
-	// content = editor.getValue();
-
 	// set the content and put the cursor back where it belongs...
 	cursorLocation = editor.selection.getCursor();
 
@@ -28,8 +27,6 @@ function setAceContent(content) {
 	editor.moveCursorToPosition(cursorLocation);
 
 	globalSetInProgress = false;
-
-	// console.log('Setting content...');
 
 }
 
