@@ -57,6 +57,7 @@ var userName;
 
             // fix the height of the console and editor windows;
             var heightFix = $(window).height() - 56;
+            console.log(heightFix);
             $('#console').css('height', (heightFix) + 'px');
             $('#editor').css('height', (heightFix - 42) + 'px');
 
