@@ -16,6 +16,8 @@ var aceContents = 'function printSomeThings() {\n\n' +
 
 'printSomeThings();\n\n';
 
+var lastPushToGoogle;
+
 var loggedEvents = [];
 
 var isRunning = false;
@@ -182,7 +184,7 @@ function update_file(){
 
     ], function(err, results) {
       if (!err) {
-        console.log(results);
+        // console.log(results); suppress print call
       } else {
         console.error('---error');
         console.error(err);
@@ -190,6 +192,19 @@ function update_file(){
     });
 
 }
+
+// continuously loop to update the file if it's changed
+function pushToGoogleDoc() {
+    if(lastPushToGoogle !== aceContents) {
+        console.log("Pushing file to Google...");
+        // update_file();
+        lastPushToGoogle = aceContents;
+    }
+    setTimeout(pushToGoogleDoc, 5000);
+}
+
+setTimeout(pushToGoogleDoc, 5000);
+
 
 
 // End Drive Stuff
