@@ -24,7 +24,7 @@ Codesnoop bring together the functionality of tools that we use every day:
 
 ... and brings it all right to the browser in real time.
 
-CodeSnoop is built around a handfull of core features. Users log in with the first and last names, and an optional admin code. Some codesnoop features are restricted to admins, some are available to anybody watching.
+CodeSnoop is built around a handfull of core features. Users log in with their first and last names, and an optional admin code. Some codesnoop features are restricted to admins, some are available to anybody watching.
 
 The main dashboard includes a real-time collaborative editor. Admins can make changes at any time, and their modifications are relayed immediately to other collaborators. 
 
