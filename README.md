@@ -1,5 +1,7 @@
 ##Codesnoop
 
+2/22/14 Update: We were the winning project! Thanks for the votes.
+
 #### About
 
 Codesnoop is an entry for the 2014 Google and WPI hosted Hackathon. It's a gorgeous way to collaborate with your friends in real time, and we think just the beginning of real-time code collaboration on the web.
