@@ -4,7 +4,7 @@
   "description": "Google and WPI Hackathon 2014 Project",
   "repository": {
     "type": "git",
-    "url": "git://github.com/joshdickson40/GoogleHackathon2014.git"
+    "url": "git://github.com/joshdickson40/Codesnoop.git"
   },
   "author": "Joshua Dickson",
   "dependencies" : {
@@ -17,9 +17,8 @@
     "email" : "josh.dickson@wpi.edu",
     "url" : "https://github.com/joshdickson40"
   }, {
-    "name" : "Eddie Osowski"
-  },, {
-    "name" : "Christopher Donnelley"
+    "name" : "Christopher Donnelley",
+    "email" : "cdonnelly@WPI.EDU",
   }],
   "license": "MIT"
 }
